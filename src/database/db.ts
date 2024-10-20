@@ -1,8 +1,10 @@
+import { v4 as uuidv4 } from "uuid";
+
 type UserProps = {
-  id: number;
   username: string;
   age: number;
   hobbies: string[];
+  id?: number;
 };
 
 type DataStoreProps = {
@@ -15,7 +17,10 @@ type DataStoreProps = {
 export const DATA_STORE: DataStoreProps = {
   _data: [],
   addToStore: function (data: UserProps) {
-    this._data.push(data);
+    this._data.push({
+      ...data,
+      id: uuidv4(),
+    });
     return data;
   },
   getUsers: function () {

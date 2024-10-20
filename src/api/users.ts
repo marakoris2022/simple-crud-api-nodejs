@@ -1,7 +1,11 @@
 // routes/getRequest.js
 import url from "url";
+import http from "http";
 
-export const handleGetRequest = (req, res) => {
+export const handleGetRequest = (
+  req: http.IncomingMessage,
+  res: http.ServerResponse<http.IncomingMessage>
+) => {
   const parsedUrl = url.parse(req.url, true); // Parse the URL with query params
   const query = parsedUrl.query; // Extract query params
 
@@ -16,7 +20,10 @@ export const handleGetRequest = (req, res) => {
 };
 
 // routes/postRequest.js
-export const handlePostRequest = (req, res) => {
+export const handlePostRequest = (
+  req: http.IncomingMessage,
+  res: http.ServerResponse<http.IncomingMessage>
+) => {
   let body = "";
 
   // Listen for data chunks
