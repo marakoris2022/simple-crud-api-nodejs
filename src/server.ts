@@ -1,12 +1,12 @@
 import "dotenv/config";
-import http from "http";
-import url from "url";
+import * as http from "http";
+import * as url from "url";
 import {
   handleDeleteRequest,
   handleGetRequest,
   handlePostRequest,
   handlePutRequest,
-} from "./api/users.js";
+} from "./api/users.ts";
 
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
@@ -36,3 +36,5 @@ const server = http.createServer((req, res) => {
 server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+export default server;

@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
     "target": "ES6",
     "sourceMap": false,
     "outDir": "./dist"

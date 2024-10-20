@@ -1,7 +1,7 @@
-import http from "http";
+import * as http from "http";
 import { validate as uuidValidate } from "uuid";
-import { DATA_STORE, UserProps } from "../database/db.js";
-import { isObjectValid } from "../helpers/utils.js";
+import { DATA_STORE, UserProps } from "../database/db.ts";
+import { isObjectValid } from "../helpers/utils.ts";
 
 export const handleGetRequest = (
   req: http.IncomingMessage,

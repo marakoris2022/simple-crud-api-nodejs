@@ -1,4 +1,4 @@
-import { UserProps } from "../database/db.js";
+import { UserProps } from "../database/db.ts";
 
 export function isObjectValid(obj: UserProps) {
   return (
