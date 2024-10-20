@@ -4,36 +4,47 @@ import { DATA_STORE } from "../database/db.js";
 
 export const handleGetRequest = (
   req: http.IncomingMessage,
-  res: http.ServerResponse<http.IncomingMessage>
+  res: http.ServerResponse
 ) => {
   const parsedUrl = req.url.split("/");
+
   if (parsedUrl.length === 3) {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(DATA_STORE.getUsers()));
+    try {
+      const users = DATA_STORE.getUsers();
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(users));
+    } catch {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("500 Internal Server Error");
+    }
   } else if (parsedUrl.length > 3) {
     const userId = parsedUrl[3];
 
     if (!uuidValidate(userId)) {
       res.writeHead(400, { "Content-Type": "text/plain" });
-      res.end("400 userId is invalid format");
+      res.end(
+        "400 Bad Request: userId is in an invalid format. Example: '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'"
+      );
       return;
     }
 
-    const userData = DATA_STORE.getUserById(userId);
+    try {
+      const userData = DATA_STORE.getUserById(userId);
 
-    if (userData) {
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(userData));
-      return;
-    } else {
-      res.writeHead(404, { "Content-Type": "text/plain" });
-      res.end("id === userId doesn't exist");
-      return;
+      if (userData) {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(userData));
+      } else {
+        res.writeHead(404, { "Content-Type": "text/plain" });
+        res.end(`404 Not Found: No user found with id ${userId}`);
+      }
+    } catch {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("500 Internal Server Error");
     }
   } else {
     res.writeHead(404, { "Content-Type": "text/plain" });
-    res.end("404 Not Found");
-    return;
+    res.end("404 Not Found: Invalid route");
   }
 };
 
