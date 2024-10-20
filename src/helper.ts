@@ -1,3 +1,3 @@
 export function helperFunction() {
-  return console.log("help");
+  return console.log("help-test");
 }
