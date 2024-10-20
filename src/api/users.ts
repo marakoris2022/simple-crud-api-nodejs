@@ -142,7 +142,7 @@ export const handlePutRequest = (
       const updatedUserData = DATA_STORE.updateUser(userId, parsedBody);
 
       if (updatedUserData) {
-        res.writeHead(200, { "Content-Type": "application/json" }); // Use 200 for updates
+        res.writeHead(200, { "Content-Type": "application/json" });
         res.end(
           JSON.stringify({
             message: "User updated successfully in the database",

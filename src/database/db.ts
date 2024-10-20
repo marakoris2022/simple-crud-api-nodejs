@@ -24,7 +24,7 @@ export const DATA_STORE: DataStoreProps = {
       id: uuid4(),
     };
     this._data.push(newUser);
-    return newUser; // Return the new user with the generated id
+    return newUser;
   },
   getUsers: function () {
     return this._data as UserProps[];
@@ -47,7 +47,7 @@ export const DATA_STORE: DataStoreProps = {
   },
   deleteUser: function (id: string) {
     const initialLength = this._data.length;
-    this._data = this._data.filter((user) => user.id !== id);
-    return this._data.length < initialLength; // Return true if a user was deleted
+    this._data = this._data.filter((user: { id: string }) => user.id !== id);
+    return this._data.length < initialLength;
   },
 };
